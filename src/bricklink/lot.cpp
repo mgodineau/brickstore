@@ -108,7 +108,8 @@ bool Lot::operator==(const Lot &cmp) const
             && (m_markerText       == cmp.m_markerText)
             && (m_markerColor      == cmp.m_markerColor)
             && (m_dateAdded        == cmp.m_dateAdded)
-            && (m_dateLastSold     == cmp.m_dateLastSold);
+            && (m_dateLastSold     == cmp.m_dateLastSold)
+            && (m_bricklinkAvailableQuantity == cmp.m_bricklinkAvailableQuantity);
 }
 
 void Lot::save(QDataStream &ds) const
@@ -125,7 +126,8 @@ void Lot::save(QDataStream &ds) const
        << m_tier_price[0] << m_tier_price[1] << m_tier_price[2]
        << m_weight
        << m_markerText << m_markerColor
-       << m_dateAdded << m_dateLastSold;
+       << m_dateAdded << m_dateLastSold
+       << m_bricklinkAvailableQuantity;
 }
 
 Lot *Lot::restore(QDataStream &ds, uint startChangelogAt)
@@ -184,7 +186,7 @@ Lot *Lot::restore(QDataStream &ds, uint startChangelogAt)
         >> lot->m_sale >> lot->m_price >> lot->m_cost
         >> lot->m_tier_price[0] >> lot->m_tier_price[1] >> lot->m_tier_price[2]
         >> lot->m_weight >> lot->m_markerText >> lot->m_markerColor
-        >> lot->m_dateAdded >> lot->m_dateLastSold;
+        >> lot->m_dateAdded >> lot->m_dateLastSold >> lot->m_bricklinkAvailableQuantity;
 
     if (ds.status() != QDataStream::Ok)
         return nullptr;

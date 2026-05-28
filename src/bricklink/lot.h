@@ -140,6 +140,9 @@ public:
     Incomplete *isIncomplete() const    { return m_incomplete.get(); }
     void setIncomplete(Incomplete *inc) { m_incomplete.reset(inc); }
 
+    uint bricklinkAvailableQuantity() const { return m_bricklinkAvailableQuantity; }
+    void setBricklinkAvailableQuantity(uint quantity) { m_bricklinkAvailableQuantity = quantity; }
+
     void save(QDataStream &ds) const;
     static Lot *restore(QDataStream &ds, uint startChangelogAt);
 
@@ -180,6 +183,8 @@ private:
 
     QDateTime m_dateAdded;
     QDateTime m_dateLastSold;
+
+    uint m_bricklinkAvailableQuantity = 0;
 
     friend class Core;
 };

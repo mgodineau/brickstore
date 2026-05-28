@@ -518,7 +518,9 @@ Document *DocumentIO::parseBsxInventory(QFile *in)
             { u"OrigQty",      [&legacyOrigQty](auto *lot, auto &v) {
                 Q_UNUSED(lot)
                 legacyOrigQty.setValue(v.toInt());
-            } }, };
+            } },
+            {u"BricklinkAvailableQuantity", [](auto* lot, auto& v) { lot->setBricklinkAvailableQuantity(v.toInt()); } }
+            };
 
             while (xml.readNextStartElement()) {
                 if (xml.name() != u"Item")
@@ -815,6 +817,9 @@ bool DocumentIO::createBsxInventory(QIODevice *out, const Document *doc)
             create(u"DateAdded", &Lot::dateAdded, asDateTime, Constant);
         if (lot->dateLastSold().isValid())
             create(u"DateLastSold", &Lot::dateLastSold, asDateTime, Constant);
+
+        create(u"BricklinkAvailableQuantity", &Lot::bricklinkAvailableQuantity, asInt, Optional, 0);
+        
 
         if (base && !baseValues.isEmpty()) {
             xml.writeStartElement(u"DifferenceBaseValues"_qs);

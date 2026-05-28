@@ -2372,6 +2372,12 @@ void DocumentModel::initializeColumns()
           .title = QT_TR_NOOP("Alternate Id"),
           .dataFn = [&](const Lot *lot) { return lot->item() ? QString::fromLatin1(lot->item()->alternateIds()) : QString { }; },
       });
+    C(BricklinkAvailableQuantity, Column{
+        .type = Column::Type::Integer,
+        .title = QT_TR_NOOP("Bricklink available quantity"),
+        .dataFn = [&](const Lot* lot) {return lot->bricklinkAvailableQuantity();},
+        .setDataFn = [&](Lot* lot, const QVariant& v) { lot->setBricklinkAvailableQuantity(v.toUInt()); },
+      });
 }
 
 void DocumentModel::pictureUpdated(BrickLink::Picture *pic)

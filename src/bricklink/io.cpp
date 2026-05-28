@@ -198,6 +198,9 @@ IO::ParseResult IO::fromBrickLinkXML(const QByteArray &data, Hint hint, const QD
             else if (pr.currencyCode() != v)
                 throw Exception("Multiple currencies in one XML file are not supported.");
         } } },
+    {u"BRICKLINKAVAILABLEQUANTITY", [](auto* lot, auto& v) { lot->setBricklinkAvailableQuantity(v.toInt()); }
+
+    }
     };
     if (hint == Hint::Order) {
         itemTagHash.insert(u"ORDERBATCH", [](auto *lot, auto &v) { lot->setMarkerText(v); });
