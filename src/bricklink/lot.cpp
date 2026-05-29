@@ -59,6 +59,7 @@ Lot &Lot::operator=(const Lot &copy)
     m_markerColor         = copy.m_markerColor;
     m_dateAdded           = copy.m_dateAdded;
     m_dateLastSold        = copy.m_dateLastSold;
+    m_bricklinkAvailableQuantity = copy.m_bricklinkAvailableQuantity;
 
     return *this;
 }

@@ -1087,6 +1087,7 @@ QStringList MainWindow::defaultToolBarActionNames() const
         u"-"_qs,
         u"edit_price_to_priceguide"_qs,
         u"edit_price_inc_dec"_qs,
+        u"fetch_bricklink_available_quantity"_qs,
         u"-"_qs,
         u"view_column_layout_load"_qs,
     };

@@ -364,6 +364,10 @@ View::View(Document *document, QWidget *parent)
               if (co_await qCoro(&dlg, &QDialog::finished) == QDialog::Accepted)
                   m_document->priceAdjust(dlg.isFixed(), dlg.value(), dlg.applyToTiers());
           } },
+        {"fetch_bricklink_available_quantity", [this](bool) -> QCoro::Task<> {
+            Q_ASSERT(!selectedLots().isEmpty());
+            co_return m_document->updateBricklinkAvailableQuantity();
+        } },
         { "edit_tierprice_relative", [this](bool) -> QCoro::Task<> {
              Q_ASSERT(!selectedLots().isEmpty());
 

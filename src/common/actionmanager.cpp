@@ -490,6 +490,8 @@ void ActionManager::initialize()
     A("edit_lotid_copy",          QT_TR_NOOP("Copy lot id"),                     NeedSelection(1));
     A("edit_lotid_clear",         QT_TR_NOOP("Clear lot id"),                    NeedSelection(1));
     A("edit_altid_copy",          QT_TR_NOOP("Copy alternate id"),               NeedSelection(1));
+    A("fetch_bricklink_available_quantity",     QT_TR_NOOP("Fetch available quantity from bricklink"), NeedSelection(1));
+	a->m_iconName = "bricklink-lotsforsale";
 
     A("bricklink_catalog",        QT_TR_NOOP("Show BrickLink Catalog Info..."),     QT_TR_NOOP("Ctrl+B,Ctrl+C", "Edit|Show BL Catalog Info"),  NeedSelection(1, 1) | NeedNetwork);
     A("bricklink_priceguide",     QT_TR_NOOP("Show BrickLink Price Guide Info..."), QT_TR_NOOP("Ctrl+B,Ctrl+P", "Edit|Show BL Price Guide"),   NeedSelection(1, 1) | NeedNetwork);

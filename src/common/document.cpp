@@ -1146,6 +1146,42 @@ void Document::cancelPriceGuideUpdates()
     }
 }
 
+void Document::updateBricklinkAvailableQuantity(bool forceUpdate) {
+
+    const LotList lots = selectedLots();
+    std::vector<std::pair<Lot*, Lot>> changes;
+
+    for (Lot* lot : lots) {
+        Lot updatedLot = *lot;
+        BrickLink::PriceGuide* priceGuide = BrickLink::core()->priceGuideCache()->priceGuide(lot->item(), lot->color());
+        if (priceGuide == nullptr) {
+            continue;
+        }
+        
+        if (forceUpdate || true) {
+            priceGuide->update();
+        }
+        
+        if (
+            priceGuide->updateStatus() == BrickLink::UpdateStatus::Loading
+            || priceGuide->updateStatus() == BrickLink::UpdateStatus::Updating
+            ) {
+            QEventLoop loop;
+            QObject::connect(priceGuide, &BrickLink::PriceGuide::lastUpdatedChanged, &loop, &QEventLoop::quit);
+            loop.exec();
+        }
+        
+        
+        int availableQuantity = 0;
+        for (BrickLink::Condition condition = (BrickLink::Condition)0; condition < BrickLink::Condition::Count; ((int&)condition)++) {
+            availableQuantity += priceGuide->lots(BrickLink::Time::Current, condition);
+        }
+        updatedLot.setBricklinkAvailableQuantity(availableQuantity);
+		changes.emplace_back(lot, updatedLot);
+    }
+
+    m_model->changeLots(changes, DocumentModel::Field::BricklinkAvailableQuantity);
+}
 
 void Document::roundPrice()
 {
